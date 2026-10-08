@@ -226,7 +226,8 @@ header.top .wrap{display:flex;align-items:center;gap:12px;padding-top:14px;paddi
 .bgslide.on{opacity:1;transform:none;animation:kb3d 15s ease-in-out forwards}
 .bgslide.off{opacity:0;transform:rotateY(-16deg) translateZ(-220px) scale(1.12);animation:none}
 @keyframes kb3d{0%{transform:rotateY(-5deg) rotateX(3deg) scale(1.12) translate3d(-1.5%,0,0)}100%{transform:rotateY(5deg) rotateX(-2deg) scale(1.02) translate3d(1.5%,-1%,0)}}
-.bgshade{position:absolute;inset:0;background:radial-gradient(75% 65% at 50% 50%,rgba(6,10,22,.12),rgba(6,10,22,.62)),linear-gradient(180deg,rgba(6,10,22,.15),rgba(6,10,22,.5));pointer-events:none}
+.bgshade{position:absolute;inset:0;background:radial-gradient(75% 65% at 50% 50%,rgba(8,14,32,.28),rgba(6,10,22,.78)),linear-gradient(180deg,rgba(14,24,56,.35),rgba(6,10,22,.6));pointer-events:none}
+.bgcap .credit{font-weight:500;letter-spacing:.04em;text-transform:none;opacity:.7}
 .bgcap{position:absolute;left:20px;bottom:18px;z-index:3;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,232,.75)}
 .bgdots{display:flex;gap:6px}.bgdots i{width:18px;height:3px;border-radius:3px;background:rgba(255,255,255,.25);transition:background .4s,width .4s}.bgdots i.on{background:#f2b33d;width:30px}
 #gate .floor{opacity:.45}
@@ -763,18 +764,30 @@ const SCENES=[
 const sceneURL=s=>`url('data:image/svg+xml;charset=utf-8,${encodeURIComponent(s.svg).replace(/'/g,"%27")}')`;
 
 let bgIdx=0,bgTimer=null;const BG_DUR=15000;
+// Echte Stockfotos (Pexels-Lizenz, frei nutzbar). Ohne Internet greift die gezeichnete Szene darunter.
+const PX=id=>`https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1920`;
+const PHOTOS=[
+ {id:8285775, label:"Objektschutz", credit:"Nikolai Lapshin", scene:4},
+ {id:3714318, label:"Videoüberwachung", credit:"Mads Thomsen", scene:0},
+ {id:18530592,label:"Streifendienst", credit:"Click Jeth", scene:1},
+ {id:279810,  label:"Mechanische Sicherung", credit:"Pixabay", scene:2},
+ {id:7508684, label:"Kameratechnik", credit:"David Yu", scene:3},
+ {id:274957,  label:"Überwachung im Stadtraum", credit:"Pixabay", scene:0}
+];
 function buildGateBg(){
   const st=$("gateBg");
-  st.innerHTML=SCENES.map((s,k)=>`<div class="bgslide" style="background-image:${sceneURL(s)}"></div>`).join("");
-  showBg(Math.floor(Math.random()*SCENES.length),true);
+  PHOTOS.forEach(ph=>{const im=new Image();im.onload=()=>{ph.ok=true;if(PHOTOS[bgIdx]===ph)capBg();};im.src=PX(ph.id);});
+  st.innerHTML=PHOTOS.map(ph=>`<div class="bgslide" style="background-image:url('${PX(ph.id)}'),${sceneURL(SCENES[ph.scene])}"></div>`).join("");
+  showBg(Math.floor(Math.random()*PHOTOS.length),true);
 }
+function capBg(){const ph=PHOTOS[bgIdx];$("bgLabel").innerHTML=ph.label+(ph.ok?` <span class="credit">· Foto: ${ph.credit} / Pexels</span>`:"");}
 function showBg(k,first){
   const slides=$("gateBg").children;
   for(const s of slides){if(s.classList.contains("on")){s.classList.remove("on");s.classList.add("off");setTimeout(()=>s.classList.remove("off"),1800);}}
   const el=slides[k];el.classList.remove("off");void el.offsetWidth;el.classList.add("on");
-  bgIdx=k;$("bgLabel").textContent=SCENES[k].label;
-  $("bgDots").innerHTML=SCENES.map((_,j)=>`<i class="${j===k?"on":""}"></i>`).join("");
-  clearTimeout(bgTimer);bgTimer=setTimeout(()=>showBg((bgIdx+1)%SCENES.length),BG_DUR);
+  bgIdx=k;capBg();
+  $("bgDots").innerHTML=PHOTOS.map((_,j)=>`<i class="${j===k?"on":""}"></i>`).join("");
+  clearTimeout(bgTimer);bgTimer=setTimeout(()=>showBg((bgIdx+1)%PHOTOS.length),BG_DUR);
 }
 
 const SKEY="sk34a.unlocked";
