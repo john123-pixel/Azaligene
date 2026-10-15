@@ -16,6 +16,7 @@ Die Aufgaben, Karteikarten und Abbildungen bleiben in `original/…html`. Das ne
 | `design/landing.html` | Startseite |
 | `design/fx.js` | 3D-Neigung, Parallax, Konfetti, Galerie; `BOOK_COVER` für ein echtes Buchcover |
 | `design/photos.js` | Fotos der 3D-Diashow (Unsplash-IDs) |
+| `design/extras.js` / `extras.css` | Eule Emma, Töne, Lernreise, Serie und Tagesziel, Blitz-Challenge, Duell, 3D-Würfel, Trophäen-Raum, Level-up, Wochenbericht, Urkunde |
 
 Neu bauen:
 

@@ -22,7 +22,7 @@ def sub_once(old, new, text, label):
 # 1) CSS: alles nach den @font-face-Regeln bis </style> ersetzen
 css_start = html.index(":root{\n  --desk:")
 css_end = html.index("</style>")
-html = html[:css_start] + (HERE / "style.css").read_text(encoding="utf-8") + "\n" + html[css_end:]
+html = html[:css_start] + (HERE / "style.css").read_text(encoding="utf-8") + "\n" + (HERE / "extras.css").read_text(encoding="utf-8") + "\n" + html[css_end:]
 
 # 2) Startseite ersetzen
 l_start = html.index("<!-- ============ Startseite ============ -->")
@@ -61,7 +61,7 @@ html = sub_once(
 
 # 6) Effekte vor dem Start-Block einfügen
 html = sub_once("/* ===== Start ===== */",
-                (HERE / "fx.js").read_text(encoding="utf-8") + "/* ===== Start ===== */", html, "fx")
+                (HERE / "fx.js").read_text(encoding="utf-8") + (HERE / "extras.js").read_text(encoding="utf-8") + "/* ===== Start ===== */", html, "fx")
 
 # 7) Kopfdaten
 html = sub_once('<meta name="color-scheme" content="light dark">',
