@@ -25,7 +25,7 @@ The refreshed file is `Logik-Lern-App.html` in this repository. It is still one 
 ## 3. What changed
 
 - **Background:** the SVG scenes are replaced by four Unsplash photographs, matched to the existing captions. Each is WebP at 1920×1200, 42–66 KB.
-- **Headline:** the eyebrow now reads "IQ-Test-Vorbereitung · Ausgabe 2026–2027" and the headline reads "Logisches Denken auf *höchstem Niveau* trainieren". It uses Cormorant at up to 76 px, with gold-gradient italic emphasis and lining numerals for the stats.
+- **Headline:** the eyebrow now reads "Training für die Top 2 %" and the headline reads "Logisches Denken auf *höchstem Niveau* trainieren". It uses Cormorant at up to 76 px, with gold-gradient italic emphasis and lining numerals for the stats.
 - **Wordmark:** a circular gold seal with a serif "L", the name "Logik-Lern-App" in Cormorant and a tracked small-caps subline. The same wordmark appears in the app sidebar.
 - **Login form:** fields now run Name, Ihr Coach, Zugangswort. The name field uses `autocomplete="name"`, and the coach picker is an accessible radio group. The selected coach updates the welcome bubble live and is saved to the profile on login.
 - **Coach avatars:** portrait photos replace the drawn faces everywhere: the landing card, the floating coach and the Settings picker. The avatar has a gold ring and fixed `display:block` sizing.
@@ -36,8 +36,8 @@ File size grew from 10.21 MB to about 10.64 MB.
 
 ## 4. Recommendations not yet implemented
 
-- **Naming:** the repository is called "mensa-iq-test", but the app correctly calls itself unofficial. Do not put "Mensa" in the title or logo. It is a registered trademark of Mensa International, and using it would contradict the page's own "Kein offizieller Test" notice. A distinctive own name would carry more value, for example "Logik-Lern-App · IQ-Training", or a new brand name.
-- **Edition year:** the page says "2026–2027", but the repository name says "2027–2028". Decide which is correct and update the eyebrow and wordmark subline (`renderGate`).
+- **Naming (done):** "Mensa" is a registered trademark of Mensa International, so it stays out of the app name, logo and title. Instead the eyebrow carries the value ("Training für die Top 2 %"), and Mensa is mentioned once, descriptively, in the lead text ("z. B. den Aufnahmetest von Mensa"). A trademark and independence disclaimer sits under the login button and in its own card on "Prüfung & Hinweise". Have a trademark lawyer confirm the final wording, because the book's own title also contains "Mensa".
+- **Edition year (done):** set to 2027–2028 in the wordmark subline and in the book title on "Prüfung & Hinweise".
 - **Mobile flow:** consider placing the login card directly under the headline on phones (hide or shorten the stats), so candidates can sign in without scrolling.
 - **Trust strip:** a short row of real proof under the stats would add credibility, such as the book cover, the author's name and credentials, or a reader quote.
 
