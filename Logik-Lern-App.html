@@ -322,6 +322,16 @@ body.home #coach{display:none!important}
 .streak{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:99px;background:var(--sunsoft);color:var(--ink);font:600 13px/1 var(--sans);white-space:nowrap}
 .streak .i{color:#f08c00}
 .me{width:38px;height:38px;border-radius:50%;background:var(--sun);color:#111318;display:grid;place-items:center;font:700 14px/1 var(--sans);text-decoration:none}
+.pmenu{position:relative}
+button.me{border:0;cursor:pointer;transition:box-shadow .12s}button.me:hover,button.me[aria-expanded=true]{box-shadow:0 0 0 3px rgba(255,199,44,.35)}
+.pdrop{position:absolute;right:0;top:calc(100% + 10px);z-index:45;width:250px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow2);padding:8px;animation:pop .16s ease-out}
+.phead{display:flex;align-items:center;gap:11px;padding:8px 8px 12px;margin-bottom:6px;border-bottom:1px solid var(--line2)}
+.phead .avatar{width:38px;height:38px;flex:none}.phead b{display:block;font-size:14px}.phead span{display:block;font-size:12px;color:var(--mute)}
+.pdrop a,.pdrop button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border:0;border-radius:10px;background:none;color:var(--ink);text-decoration:none;font:500 14px var(--sans);text-align:left}
+.pdrop a:hover,.pdrop button:hover{background:var(--line2)}
+.pdrop .out{color:var(--bad);margin-top:4px;border-top:1px solid var(--line2);border-radius:0 0 10px 10px}
+.sideout{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 12px -2px;padding:9px 12px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:none;color:#c9cbd0;font:500 14px var(--sans)}
+.sideout:hover{background:rgba(229,72,77,.14);border-color:rgba(229,72,77,.4);color:#ff8a8d}
 .ib{border-radius:12px;transition:border-color .12s,transform .08s}.ib:hover{border-color:var(--sun2)}.ib:active{transform:scale(.96)}
 /* Pages, cards */
 #view{padding:32px 32px 96px;max-width:1160px}
@@ -472,7 +482,7 @@ a.stat:hover,.tile:hover,.acard:hover{transform:translateY(-2px);box-shadow:var(
   <aside id="side">
     <div class="brand" style="padding:6px 8px 14px"><div class="logo">L</div><div><b>Logik-Lern-App</b><span>IQ-Test-Vorbereitung</span></div></div>
     <nav id="nav"></nav>
-    <div class="foot">Übungsmaterial in Anlehnung an Logik- und Denktests. Kein offizieller Test.</div>
+    <div class="foot"><button class="sideout" data-act="logoutask"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg>Abmelden</button>Übungsmaterial in Anlehnung an Logik- und Denktests. Kein offizieller Test.</div>
   </aside>
   <div id="main">
     <header id="top"><button id="menu" class="ib" data-act="menu" aria-label="Menü">☰</button><div class="ttl" id="ttl"></div><div class="tops" id="tops"></div><button class="ib" data-act="theme" aria-label="Hell oder dunkel" title="Hell oder dunkel"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button></header>
@@ -664,7 +674,8 @@ const ICON = {
   arrow: 'M5 12h14m-6-6 6 6-6 6',
   shuffle: '<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
   play: 'M7 4.5v15l12.5-7.5z',
-  checkc: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>'
+  checkc: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+  logout: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/>'
 };
 const icon = (k, s = 18) => '<svg class="i" width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICON[k][0] === '<' ? ICON[k] : '<path d="' + ICON[k] + '"/>') + '</svg>';
 
@@ -728,8 +739,15 @@ function renderTop() {
   const t = $('#tops'); if (!t || !Z.S) return; const n = streak(), nm = (Z.S.name || '').trim();
   const ini = nm ? nm.split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase() : '?';
   t.innerHTML = '<span class="streak" title="Lerntage in Folge">' + icon('flame', 16) + '<b>' + n + '</b><span>' + (n === 1 ? 'Tag' : 'Tage') + ' in Folge</span></span>'
-    + '<a class="me" href="#/einstellungen" title="' + esc(nm || 'Profil') + '">' + esc(ini) + '</a>';
+    + '<div class="pmenu"><button class="me" data-act="pmenu" aria-haspopup="menu" aria-expanded="false" title="' + esc(nm || 'Profil') + '">' + esc(ini) + '</button>'
+    + '<div class="pdrop hide" role="menu"><div class="phead"><span class="avatar">' + avatarHTML(Z.S.coach) + '</span><div><b>' + esc(nm || 'Ihr Profil') + '</b><span>mit ' + esc(COACHES[Z.S.coach].title) + '</span></div></div>'
+    + '<a role="menuitem" href="#/einstellungen">' + icon('sliders', 17) + 'Einstellungen</a><a role="menuitem" href="#/fortschritt">' + icon('chart', 17) + 'Fortschritt</a>'
+    + '<button role="menuitem" class="out" data-act="logoutask">' + icon('logout', 17) + 'Abmelden</button></div></div>';
 }
+function closePmenu() { const d = $('.pdrop'); if (d) { d.classList.add('hide'); $('[data-act=pmenu]').setAttribute('aria-expanded', 'false'); } }
+Z.acts.pmenu = a => { const d = $('.pdrop'), open = d.classList.contains('hide'); d.classList.toggle('hide', !open); a.setAttribute('aria-expanded', open); };
+document.addEventListener('click', e => { if (!e.target.closest('.pmenu')) closePmenu(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePmenu(); });
 window.addEventListener('hashchange', route);
 document.addEventListener('click', e => {
   const a = e.target.closest('[data-act]'); if (!a) return;
@@ -2619,7 +2637,7 @@ Z.views.einstellungen = el => {
     + tog('big', 'Große Schrift', 'Vergrößert Text in der gesamten App.') + tog('reduce', 'Bewegung reduzieren', 'Schaltet leichte Animationen im Übungsmodus ab. Abbildungen werden nie animiert.') + '</div>';
   h += '<div class="card"><h3>Übungsmodus</h3>' + tog('second', 'Zweiter Versuch', 'Nach einer falschen Antwort dürfen Sie einmal erneut wählen, bevor die Lösung erscheint.') + tog('hints', 'Hinweis-Leiter', 'Bis zu drei Hinweise pro Aufgabe. Aufgaben mit Hinweisen zählen nicht als sicher gelöst.') + tog('conf', 'Sicherheit abfragen', 'Fragt vor dem Bestätigen, wie sicher Sie sind. Daraus entsteht die Kalibrierung im Fortschritt.') + tog('strict', 'Strenge Zeit im Benchmark', 'Teile enden automatisch nach der Richtzeit. Aus: Sie sehen die Zeit nur als Richtwert.') + tog('mixed', 'Gemischte Runden', 'Mischt Aufgabentypen innerhalb einer Runde (wirksamer für das Unterscheiden von Regeln).') + '</div>';
   h += '<div class="card"><h3>Fortschritt sichern</h3><p class="small mute">Ihr Fortschritt liegt nur in diesem Browser. Wenn Sie Browserdaten löschen oder das Gerät wechseln, ist er weg. Sichern Sie ihn deshalb ab und zu in eine Datei.</p><div class="row gap wrap"><button class="btn pri" data-act="bkexp">Sicherung herunterladen</button><button class="btn" data-act="bkimp">Sicherung laden …</button><input type="file" id="bkfile" accept="application/json,.json" class="hide"></div><div class="small mute" style="margin-top:10px">Zuletzt gesichert: ' + (S.lastBackup ? new Date(S.lastBackup).toLocaleString('de-DE') : 'noch nie') + '</div></div>';
-  h += '<div class="card"><h3>Zugang und Daten</h3><p class="small mute">Das Zugangswort wird nur auf diesem Gerät gemerkt, wenn Sie das beim Anmelden gewählt haben.</p><div class="row gap wrap"><button class="btn" data-act="logout">Auf diesem Gerät abmelden</button><button class="btn" data-act="reset" style="color:var(--bad)">Gesamten Fortschritt löschen</button></div></div>';
+  h += '<div class="card"><h3>Zugang und Daten</h3><p class="small mute">Das Zugangswort wird nur auf diesem Gerät gemerkt, wenn Sie das beim Anmelden gewählt haben.</p><div class="row gap wrap"><button class="btn" data-act="logoutask">Auf diesem Gerät abmelden</button><button class="btn" data-act="reset" style="color:var(--bad)">Gesamten Fortschritt löschen</button></div></div>';
   h += '<div class="card"><h3>Über diese App</h3><p class="small">Logik-Lern-App · IQ-Test-Vorbereitung<br>Version ' + APP_VERSION + '<br>Aufgaben: ' + Z.D.bank.length + ' in der Fragenbank, ' + Z.D.bm.length + ' im Experten-Benchmark.</p><a class="btn sm" href="#/info">Prüfung und Hinweise</a></div>';
   h += '</div>';
   el.innerHTML = h;
@@ -2646,7 +2664,8 @@ Z.acts.bkexp = () => {
   downloadBlob(blob, 'Logik-Lern-App_Sicherung_' + dstr() + '.json'); toast('Sicherung heruntergeladen.'); route();
 };
 Z.acts.bkimp = () => $('#bkfile').click();
-Z.acts.logout = () => { ls.del('mq27_pw'); location.hash = ''; location.reload(); };
+Z.acts.logout = () => { saveNow(); ls.del('mq27_pw'); location.hash = ''; location.reload(); };
+Z.acts.logoutask = () => { closePmenu(); document.body.classList.remove('menu'); confirmBox('Abmelden?', 'Ihr Fortschritt bleibt auf diesem Gerät gespeichert.' + (Z.S.cur ? ' Ihre laufende Sitzung können Sie nach dem nächsten Anmelden fortsetzen.' : '') + ' Zum Wiedereinstieg brauchen Sie das Zugangswort aus dem Buch.', 'Abmelden', Z.acts.logout); };
 Z.acts.reset = () => confirmBox('Fortschritt löschen?', 'Alle Antworten, Statistiken, Fehlerheft und Einstellungen auf diesem Gerät werden gelöscht. Das lässt sich nicht rückgängig machen. Sichern Sie vorher, wenn Sie unsicher sind.', 'Alles löschen', () => { Z.run = null; ls.del('mq27_run'); Z.S = defState(); saveNow(); applyPrefs(); mountCoach(); toast('Fortschritt gelöscht.'); go(''); }, true);
 
 /* ===== Fehler melden ===== */
