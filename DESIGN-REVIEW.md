@@ -88,3 +88,12 @@ The five area colors (Zahlen blue, Sprache green, Figural yellow, Gedächtnis vi
 ## 7. Screenshots
 
 `docs/screenshots/`: landing page (`before-landing.jpg`, `after-landing-dark.jpg`, `after-landing-light.jpg`, `after-mobile.jpg`), coach picker (`coach-picker-before-after.jpg`), app interior (`app-dashboard-before.jpg`, `app-dashboard-light.jpg`, `app-dashboard-dark.jpg`, `app-dashboard-mobile.jpg`, `app-question-light.jpg`). `after-landing-light.jpg`, `after-mobile.jpg` and `coach-picker-before-after.jpg` predate the yellow palette.
+
+## 8. Added features (logout and the recommended five)
+
+- **Logout:** an "Abmelden" item in the profile menu (initials, top right) and a button at the bottom of the sidebar, both with a confirmation. Progress stays on the device; only the remembered access word is removed.
+- **Daily goal:** set to Aus/10/20/30/50 in Settings (default 20). The dashboard ring shows today's progress, the activity chart draws a dashed goal line, and a toast appears when the goal is reached.
+- **Test-day countdown:** taken from the Lernplan test date ("Noch 42 Tage bis zum Test"). It turns yellow in the final week. Without a plan it shows a "Testtermin festlegen" link.
+- **Aufgaben des Tages:** five questions per day, one per area, the same for every reader (chosen from the date). The dashboard card shows a status box per area, then the result and a solutions view once all five are done.
+- **Merkliste and notes:** star a question ("Merken") or add a note from the question screen or the question preview. The new "Merkliste" page in the menu lists them, with "Alle üben". Saving a note also stars the question.
+- **Keyboard and focus mode:** A–F to choose, Enter to confirm or go on, H for a hint, S to star, N for a note, ←/→ to move between questions in exams, and Shift+F for focus mode, which hides the menu and coach during a session. A shortcut line is shown under the options on desktop.
