@@ -54,6 +54,37 @@ File size grew from 10.21 MB to about 10.64 MB.
 
 Fonts: Cormorant Garamond and Inter, both under the SIL Open Font License 1.1 via Google Fonts.
 
-## 6. Screenshots
+## 6. App interior redesign: "sun yellow and ink"
 
-`docs/screenshots/`: `before-landing.jpg`, `after-landing-dark.jpg`, `after-landing-light.jpg`, `after-mobile.jpg`, `coach-picker-before-after.jpg`.
+**Palette.** Navy and brass are replaced by a bold yellow on near-black, with warm white surfaces:
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--sun` | `#ffc72c` | `#ffc72c` | Main buttons, active menu item, progress, chart bars |
+| `--sun2` | `#ffb800` | `#ffb800` | Hover, focus rings |
+| `--sunink` | `#9a6a00` | `#ffc72c` | Yellow *text* (eyebrows, question IDs). Dark gold on light backgrounds for legibility |
+| ink | `#15171c` | `#f2f1ee` | Text; secondary buttons in light mode |
+| sidebar / hero | `#111318` | `#111318` / `#16181d` | Sidebar and dashboard hero |
+| `--bg` / `--card` | `#f6f5f1` / `#fff` | `#0c0d10` / `#16181d` | Page and cards |
+
+The five area colors (Zahlen blue, Sprache green, Figural yellow, Gedächtnis violet, Transfer coral) were run through a colorblind-safety validator for both light and dark mode. They always appear next to their text label. The yellow is our own and does not copy Mensa's logo or trade dress.
+
+**Dashboard (Übersicht).** Replaces the single row of numbers and the floating "Guten Tag" bubble:
+- A dark hero card with the date, a time-of-day greeting ("Guten Morgen/Tag/Abend, *Max*"), the coach's message inline with their portrait, and a "Nächster Schritt" panel with a yellow Start button.
+- A progress ring: how much of the question bank has been worked through.
+- Four stat tiles with icons: answered, accuracy, streak, open mistakes. The tiles link to Fortschritt or the Fehlerheft.
+- An activity chart for the last 7 days, plus a yellow Experten-Benchmark card.
+- Clickable area cards: each opens "Nach Bereich üben" with that area preselected.
+- Quick-start tiles: 10 or 20 mixed questions, exam simulation, downloads.
+
+**Shell.** The sidebar is near-black with line icons in place of Unicode symbols, and the active item is a yellow pill. The top bar shows a streak chip and the user's initials, which link to Settings.
+
+**Controls.** Segmented controls, chips and inputs share a yellow focus ring. Answer options lift on hover, the chosen letter turns yellow and the correct answer gets a green halo. The timer is a dark pill with yellow digits. The solution box and the question's highlighted line use a soft yellow tint. Numbers now use lining figures everywhere.
+
+**Speed and feel.** Pages slide in over about 0.3 s with a short stagger, and buttons react within 0.12 s. All of this is switched off under "Bewegung reduzieren" or the system's reduced-motion setting.
+
+**How it was checked.** The access word wasn't available, so the inside of the app was rendered with a dummy question set shaped like the real data. This was done in light and dark mode and at 390 px phone width, and showed no script errors. The real questions, images and all learning logic are untouched.
+
+## 7. Screenshots
+
+`docs/screenshots/`: landing page (`before-landing.jpg`, `after-landing-dark.jpg`, `after-landing-light.jpg`, `after-mobile.jpg`), coach picker (`coach-picker-before-after.jpg`), app interior (`app-dashboard-before.jpg`, `app-dashboard-light.jpg`, `app-dashboard-dark.jpg`, `app-dashboard-mobile.jpg`, `app-question-light.jpg`). `after-landing-light.jpg`, `after-mobile.jpg` and `coach-picker-before-after.jpg` predate the yellow palette.
