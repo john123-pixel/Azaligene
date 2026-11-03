@@ -591,10 +591,136 @@ body.cards .pagehead{border-bottom:0;padding-bottom:0}
 @media(max-width:900px){#toast{bottom:6rem}}
 @media print{#app,#gate,#buddy,#toast{display:none!important}}
 @media(prefers-reduced-motion:reduce){.slide.on .ph,.zg *,#view{animation:none!important}}
+
+/* =========================================================
+   Farbschicht: Navy und Gold als Anker, klare Akzentfarben
+   ========================================================= */
+:root{
+  --c-blue:#2563eb;--c-teal:#0d9488;--c-violet:#7c3aed;--c-coral:#e0533d;--c-amber:#d48a0c;--c-navy:#16407a;
+  --bg:#f2f4f9;--sunk:#eef1f7;--line:#e1e5ee;--line2:#ebeef5;
+  --grad-pri:linear-gradient(135deg,#2d5fd0 0%,#173f80 55%,#0e2a4d 100%);
+  --grad-gold:linear-gradient(135deg,#f3d48c 0%,#d9a948 55%,#b9862c 100%);
+}
+html[data-theme=dark]{--bg:#081120;--sunk:#0c1729;--line:#1c2a44;--line2:#152238;--grad-pri:linear-gradient(135deg,#f0cf86,#d4a447)}
+body{background:radial-gradient(900px 520px at 100% -10%,rgba(37,99,235,.08),transparent 60%),radial-gradient(800px 480px at -10% 110%,rgba(212,138,12,.07),transparent 60%),var(--bg);background-attachment:fixed}
+html[data-theme=dark] body{background:radial-gradient(900px 520px at 100% -10%,rgba(37,99,235,.16),transparent 60%),radial-gradient(800px 480px at -10% 110%,rgba(212,138,12,.08),transparent 60%),var(--bg);background-attachment:fixed}
+
+/* Buttons */
+.btn.pri{background:var(--grad-pri);border-color:transparent;box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 8px 20px -8px rgba(29,75,160,.65)}
+.btn.pri:hover{background:var(--grad-pri);filter:brightness(1.08);border-color:transparent}
+html[data-theme=dark] .btn.pri{box-shadow:0 8px 20px -8px rgba(226,192,122,.5)}
+.btn.gold{background:var(--grad-gold);border-color:transparent;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 8px 20px -8px rgba(185,134,44,.7)}
+.gcard .btn.pri{background:var(--grad-pri);border:0}
+
+/* Seitenleiste in Tiefblau */
+.side{background:linear-gradient(180deg,#0f2b52 0%,#0b1f3c 55%,#09182f 100%);border-right:0;color:#dbe4f2}
+.side .brand{border-bottom-color:rgba(255,255,255,.09)}
+.side .wordmark .wm{color:#fff}.side .wordmark .wm i{color:#e7c27a}.side .wordmark small{color:#8ea1c0}
+.nav a{color:#b8c6dc}
+.nav a .ic{color:#7f95b8}
+.nav a:hover{background:rgba(255,255,255,.06);color:#fff}.nav a:hover .ic{color:#dbe4f2}
+.nav a.on{background:linear-gradient(90deg,rgba(231,194,122,.2),rgba(231,194,122,.04));color:#fff;box-shadow:inset 0 0 0 1px rgba(231,194,122,.18)}
+.nav a.on .ic{color:#e7c27a}
+.nav a.on:before{background:#e7c27a}
+.nav .g{color:#6f86aa}
+.nav .bd{background:#e0533d;color:#fff}
+.side .me{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+.side .me .av{background:var(--grad-gold);color:#0b1f3c}
+.side .me b{color:#fff}.side .me span{color:#8ea1c0}
+.side .foot{color:#6f86aa}
+.top{background:color-mix(in srgb,#fff 78%,transparent)}
+html[data-theme=dark] .top{background:color-mix(in srgb,var(--bg) 80%,transparent)}
+.chip{background:linear-gradient(135deg,#fff6e4,#fdebc6);border-color:#f0d9a6;color:#8a5d10}
+html[data-theme=dark] .chip{background:#2a2010;border-color:#4d3a16;color:#f0c97a}
+
+/* Übersicht: Hero in Navy mit Lichtakzenten */
+.brief{background:radial-gradient(520px 300px at 85% 0%,rgba(110,167,255,.28),transparent 60%),radial-gradient(420px 260px at 0% 100%,rgba(231,194,122,.22),transparent 60%),linear-gradient(135deg,#143a6e 0%,#0e2a4d 55%,#0a1c36 100%);border:0;box-shadow:0 24px 50px -24px rgba(14,42,77,.6)}
+.brief h1{color:#fff}.brief p{color:#c5d3e8}.brief .eyebrow{color:#e7c27a}
+.brief .rec-tag{color:#fff}.brief .rec-tag:before{background:#e7c27a}
+.brief .btn.pri{background:var(--grad-gold);color:#0b1f3c;box-shadow:0 10px 24px -10px rgba(231,194,122,.8)}
+.brief .btn:not(.pri){background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
+.brief .btn:not(.pri):hover{background:rgba(255,255,255,.14)}
+.brief .bside{background:rgba(255,255,255,.05);border-left:1px solid rgba(255,255,255,.1)}
+.brief .bside .lbl{color:#e7c27a}.brief .bside p{color:#9fb2cf}
+.brief .ring .tr{stroke:rgba(255,255,255,.12)}.brief .ring .in b{color:#fff}.brief .ring .in span{color:#9fb2cf}
+.brief .ring .vl{stroke:url(#rgG)}
+@media(max-width:820px){.brief .bside{border-top:1px solid rgba(255,255,255,.1)}}
+
+/* Kennzahlen mit Farbcodes */
+.kpi{background:transparent;border:0;gap:.9rem;overflow:visible}
+.kpi>div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r3);position:relative;overflow:hidden;--c:var(--c-blue)}
+.kpi>div:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--c)}
+.kpi>div:nth-child(2){--c:var(--c-teal)}.kpi>div:nth-child(3){--c:var(--c-amber)}.kpi>div:nth-child(4){--c:var(--c-coral)}
+.kpi .ki .ic{width:26px;height:26px;padding:5px;border-radius:7px;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+@media(max-width:760px){.kpi{grid-template-columns:1fr 1fr}.kpi>div:nth-child(n+3){border-top:1px solid var(--line)}.kpi>div:nth-child(3){border-left:1px solid var(--line)}}
+
+/* Schnellstart-Karten mit eigener Farbe */
+.act{--c:var(--c-blue);overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s,border-color .2s}
+.grid>.act:nth-child(2){--c:var(--c-violet)}.grid>.act:nth-child(3){--c:var(--c-coral)}.grid>.act:nth-child(4){--c:var(--c-teal)}.grid>.act:nth-child(5){--c:var(--c-navy)}.grid>.act:nth-child(6){--c:var(--c-amber)}
+html[data-theme=dark] .grid>.act:nth-child(5){--c:#6ea7ff}
+.act:after{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c) 16%,transparent),transparent 70%);pointer-events:none}
+.act .ai{width:42px;height:42px;border-radius:11px;border:0;background:linear-gradient(140deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c));color:#fff;box-shadow:0 8px 18px -8px var(--c)}
+.act .ai .ic{width:20px;height:20px}
+a.card.act:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));box-shadow:0 16px 34px -18px color-mix(in srgb,var(--c) 60%,transparent)}
+a.card.act:hover .ai{color:#fff}
+a.card.act:hover .go{color:var(--c)}
+.act .foot .xs{color:var(--c)!important}
+
+/* Prüfungsteile */
+.partcard{overflow:hidden}
+.partcard:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pc,var(--c-blue))}
+.ptag{border:0!important;background:color-mix(in srgb,currentColor 13%,transparent)!important}
+.bar{background:color-mix(in srgb,var(--line) 70%,transparent)}
+.bar i{background:linear-gradient(90deg,#2d5fd0,#7aa2f0)}
+html[data-theme=dark] .bar i{background:linear-gradient(90deg,#d4a447,#f0cf86)}
+.sec-t{color:var(--ink2)}
+.sec-t:before{content:"";width:8px;height:8px;background:var(--grad-gold);transform:rotate(45deg)}
+.pagehead .eyebrow{color:var(--c-blue)}
+html[data-theme=dark] .pagehead .eyebrow{color:var(--gold2)}
+.eyebrow:before{content:"";width:16px;height:2px;border-radius:2px;background:currentColor;opacity:.8}
+
+/* Aufgaben */
+.runhead{border-top:3px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(90deg,#2d5fd0,#d9a948) border-box;border:1px solid transparent;border-top-width:3px}
+.runhead .bar i{background:linear-gradient(90deg,#2d5fd0,#d9a948)}
+.timer{background:linear-gradient(135deg,#eaf0ff,#dfe8ff);border-color:#c8d6fb;color:#173f80}
+.timer .ic{color:#2d5fd0}
+html[data-theme=dark] .timer{background:#13254a;border-color:#23406a;color:#cfe0ff}
+.opt .L{background:#eef3ff;border-color:#d3defa;color:#2d5fd0}
+html[data-theme=dark] .opt .L{background:#12223e;border-color:#23406a;color:#9fc0f0}
+.opt.sel .L{background:var(--grad-pri);border-color:transparent}
+.opt:hover:not([disabled]){border-color:#9db6f2;background:#f7f9ff}
+html[data-theme=dark] .opt:hover:not([disabled]){border-color:#2c4d80;background:#11203a}
+.fest{border-left-color:var(--c-blue);background:linear-gradient(90deg,#eef3ff,var(--surface2))}
+html[data-theme=dark] .fest{background:#10203a}
+.qnav button.cur{border-color:#2d5fd0;box-shadow:0 0 0 1px #2d5fd0 inset;color:#173f80}
+html[data-theme=dark] .qnav button.cur{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold2) inset;color:var(--gold2)}
+.ring .vl{stroke:url(#rgB)}
+.note{border-left-color:var(--c-amber);background:linear-gradient(90deg,#fff8ea,var(--surface) 60%)}
+html[data-theme=dark] .note{background:linear-gradient(90deg,#2a1f0d,var(--surface) 60%)}
+
+/* Lernkarten */
+.front{background:linear-gradient(180deg,#f5f8ff 0%,#fff 38%);border-color:#dbe3f3}
+.front:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#2d5fd0,#7c3aed,#d9a948);z-index:2}
+html[data-theme=dark] .front{background:linear-gradient(180deg,#132443,var(--surface) 45%);border-color:#22365a}
+.back{background:radial-gradient(420px 220px at 100% 0%,rgba(231,194,122,.25),transparent 60%),radial-gradient(380px 240px at 0% 100%,rgba(110,167,255,.22),transparent 60%),linear-gradient(160deg,#173f80 0%,#0e2a4d 55%,#0a1c36 100%)}
+.deckstats .pill{padding:.22rem .6rem}
+
+/* Mobile Tab-Leiste */
+.tabbar .on{color:var(--c-blue)}.tabbar .on .ic{color:var(--c-blue)}
+html[data-theme=dark] .tabbar .on,html[data-theme=dark] .tabbar .on .ic{color:var(--gold2)}
+@media(max-width:900px){.top .wordmark .wm i{color:var(--gold)}}
+
+/* Anmeldung */
+.shade{background:linear-gradient(100deg,rgba(8,22,46,.95) 0%,rgba(12,36,74,.84) 45%,rgba(10,30,60,.5) 100%),radial-gradient(700px 500px at 85% 100%,rgba(231,194,122,.2),transparent 60%),radial-gradient(700px 500px at 10% 0%,rgba(45,95,208,.35),transparent 60%)}
+.gtxt h1 em{background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.coach{background:linear-gradient(135deg,#f2f6ff,#fbf6ea);border-color:#e4e9f5}
+.partcard .btn.pri{background:linear-gradient(135deg,color-mix(in srgb,var(--pc) 80%,#fff),var(--pc));box-shadow:0 8px 18px -8px var(--pc);color:#fff}
+html[data-theme=dark] .partcard .btn.pri{color:#fff}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="rgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d5fd0"/><stop offset="1" stop-color="#d9a948"/></linearGradient><linearGradient id="rgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d48c"/><stop offset="1" stop-color="#6ea7ff"/></linearGradient>
   <linearGradient id="mkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e0b0"/><stop offset="1" stop-color="#c39540"/></linearGradient>
   <symbol id="mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0e2a4d"/><rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="none" stroke="#fff" stroke-opacity=".12"/><path d="M16 6.8 25.6 24H6.4z" fill="none" stroke="url(#mkG)" stroke-width="1.9" stroke-linejoin="round"/><path d="M16 11.2 18.1 20.6 16 19.3 13.9 20.6z" fill="url(#mkG)"/></symbol>
 </defs></svg>
