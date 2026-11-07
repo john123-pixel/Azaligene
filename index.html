@@ -1349,7 +1349,19 @@ function showLanding(){
   if(location.hash)history.replaceState(null,"",location.pathname+location.search);
   window.scrollTo(0,0);if(skyStart)skyStart();document.title="The Canadian Guide to End-of-Life Planning — Companion App";
 }
+/* ---- author-name gate (case-insensitive) ---- */
+const AUTHOR="leander vosswick";
+const normName=s=>String(s||"").trim().replace(/\s+/g," ").toLowerCase();
+function gate(onOk){
+  if($(".gate"))return;
+  const o=modal(`<form class="gate" autocomplete="off"><span class="eyebrow">Readers only</span><h3 style="margin-top:.6rem">Enter the author's name</h3><p>This companion is for readers of <i>The Canadian Guide to End-of-Life Planning</i>. Type the author's name as it appears on the book to open it.</p><label class="sr" for="gate-in">Author's name</label><input class="inp" id="gate-in" placeholder="Author's full name" style="width:100%;font-size:1rem;padding:.8rem 1rem" autocapitalize="words" spellcheck="false"><p class="gate-err" id="gate-err" role="alert" style="color:var(--bad);font-size:.86rem;min-height:1.3em;margin:.5rem 0 0"></p><div class="row" style="justify-content:flex-end"><button type="button" class="btn ghost" data-close>Cancel</button><button type="submit" class="btn gold">Unlock ${I.arrow}</button></div></form>`);
+  const f=$(".gate",o),inp=$("#gate-in",o);setTimeout(()=>inp.focus(),30);
+  f.addEventListener("submit",e=>{e.preventDefault();
+    if(normName(inp.value)===AUTHOR){S.unlocked=1;save();o.remove();onOk()}
+    else{$("#gate-err",o).textContent="That name doesn't match. Please check the spelling on the book's cover.";inp.select();const m=$(".modal",o);if(m.animate&&!reduce())m.animate([{transform:"translateX(0)"},{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(0)"}],{duration:300})}});
+}
 function enter(first){
+  if(!S.unlocked){gate(()=>enter(first));return}
   S.seen=1;save();skyRun=false;
   $("#landing").classList.add("hidden");$("#app").classList.remove("hidden");MP.place(false);MP.hide();
   window.scrollTo(0,0);
