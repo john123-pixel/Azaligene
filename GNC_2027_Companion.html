@@ -610,11 +610,9 @@ h1,h2,h3,h4{text-wrap:balance}
 .login .btn:hover:after{left:130%}
 
 /* landing: blueprint texture, living photo, signature year */
-.land-panel{background:radial-gradient(120% 60% at 0% 0%,rgba(232,89,12,.10),transparent 55%),radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/22px 22px,var(--ink)}
 .land-main h1 .yr{display:inline-block;color:transparent;-webkit-text-stroke:1.5px #F5A273;letter-spacing:.01em}
 .bg.on{animation:kenburns 18s ease-out both}
 @keyframes kenburns{from{transform:scale(1.08)}to{transform:scale(1)}}
-.land-photo:after{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:repeating-linear-gradient(180deg,var(--accent) 0 14px,transparent 14px 28px);opacity:.9;z-index:3}
 .what li i{transition:border-color .2s,background .2s}
 .what li:hover i{border-color:rgba(245,162,115,.5);background:rgba(232,89,12,.12)}
 
@@ -659,7 +657,6 @@ h1,h2,h3,h4{text-wrap:balance}
 .sn-nav button svg{transition:transform .2s}
 .sn-nav button:hover svg{transform:translateX(2px)}
 .sn-user .av{background:linear-gradient(145deg,#E8590C,#C94B08)}
-@media (max-width:900px){.land-photo:after{display:none}}
 
 /* ===== notebook: hardcover, ribbon and a real page turn ===== */
 .book{perspective:2600px;perspective-origin:50% 40%}
@@ -703,6 +700,42 @@ h1,h2,h3,h4{text-wrap:balance}
 .chnote label{display:block;font-weight:700;font-size:.9em;line-height:1.3;margin-bottom:8px;min-height:3.9em}
 .chnote label small{display:block;font-size:.72em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--chc,var(--muted));margin-bottom:2px}
 .chnote textarea{flex:1;width:100%;border-radius:0;min-height:110px;border:0;border-top:1px solid var(--line);padding:10px 0 0;resize:vertical;outline:none;background:repeating-linear-gradient(180deg,transparent 0 23px,#EEF0F3 23px 24px);line-height:24px;font-size:.92em}
+
+/* ===== landing: full-bleed photo behind everything, content on a gradient veil ===== */
+#landing{display:block;background:var(--ink)}
+#landing .land-photo{position:absolute;inset:0;z-index:0;background:#1A2638}
+#landing .photo-shade{background:
+  linear-gradient(90deg,rgba(15,27,45,.96) 0%,rgba(15,27,45,.90) 30%,rgba(15,27,45,.62) 46%,rgba(15,27,45,.18) 66%,rgba(15,27,45,.05) 100%),
+  linear-gradient(0deg,rgba(15,27,45,.70) 0%,rgba(15,27,45,0) 34%),
+  linear-gradient(180deg,rgba(15,27,45,.45) 0%,rgba(15,27,45,0) 18%)}
+#landing .land-panel{position:relative;z-index:2;width:min(600px,100%);height:100%;background:transparent;padding:36px 56px 26px}
+@media (min-width:1001px) and (max-height:940px){#landing .land-panel{padding-top:28px;padding-bottom:18px}#landing .land-main{padding:14px 0}.what{gap:6px;margin-bottom:20px}.land-main .lead{margin-bottom:16px}.login{padding-top:18px}.login h2{margin-bottom:12px}.field{margin-bottom:11px}}
+#landing .photo-cap{left:auto;right:40px;bottom:30px;text-align:right;flex-direction:column;align-items:flex-end;gap:12px}
+#landing .photo-cap p{max-width:340px;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.land-main h1{text-shadow:0 2px 18px rgba(15,27,45,.5)}
+.field input{background:rgba(20,34,58,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.land-foot{border-top-color:rgba(255,255,255,.12)}
+
+/* brand lockup: app icon on a soft lit tile, name with a hairline divider */
+.brand{gap:14px}
+.brand-mark{position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 24px -10px rgba(0,0,0,.6),0 0 0 4px rgba(232,89,12,.08)}
+.brand-mark svg{display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.brand-txt{font-size:1.06em;letter-spacing:-.005em;padding-left:14px;border-left:1px solid rgba(255,255,255,.16);line-height:1.25}
+.brand-txt small{color:#F5A273;font-weight:600;font-size:.74em;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+
+@media (max-width:1000px){
+  #landing{display:block}
+  #landing .land-photo{grid-row:auto}
+  #landing .photo-shade{background:linear-gradient(180deg,rgba(15,27,45,.55) 0%,rgba(15,27,45,.82) 28%,rgba(15,27,45,.93) 55%,rgba(15,27,45,.97) 100%)}
+  #landing .land-panel{width:100%;max-width:640px;margin:0 auto;padding:28px 24px 20px}
+  #landing .photo-cap{display:none}
+  #landing .land-main{margin:auto 0;padding:24px 0}
+}
+@media (max-width:480px){
+  #landing .land-panel{padding:22px 16px 18px}
+  .brand-mark{width:48px;height:48px;border-radius:15px}
+  .brand-mark svg{width:40px;height:40px}
+}
 </style>
 </head>
 <body>
@@ -711,7 +744,7 @@ h1,h2,h3,h4{text-wrap:balance}
 <!-- LANDING -->
 <section id="landing" class="screen" aria-label="Sign in">
   <div class="land-panel">
-    <div class="brand"><span id="logoLand"></span><div>GNC 2027 Companion<small>Digital companion to the book</small></div></div>
+    <div class="brand"><span class="brand-mark" id="logoLand"></span><div class="brand-txt">GNC 2027 Companion<small>Companion guide to the book</small></div></div>
     <div class="land-main">
       <p class="eyebrow">For readers of the book</p>
       <h1>NEBOSH National General Certificate Guide <span class="yr">2027</span></h1>
@@ -1475,7 +1508,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#audioB
 SCREENS.landing = {
   timer: null, idx: 0,
   init() {
-    $('#logoLand').innerHTML = logo(40);
+    $('#logoLand').innerHTML = logo(48);
     const wrap = $('#bgwrap'); const dots = $('#slideDots');
     IMG.landing.forEach(([id, alt], i) => { const d = document.createElement('div'); d.className = 'bg'; d.setAttribute('role', 'img'); d.setAttribute('aria-label', alt); d.dataset.src = UNS(id); wrap.appendChild(d); dots.insertAdjacentHTML('beforeend', '<i></i>'); });
     this.slides = $$('.bg:not(.fallback)', wrap);
